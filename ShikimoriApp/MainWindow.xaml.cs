@@ -22,11 +22,18 @@ namespace ShikimoriApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        ShikimoriController controller;
         public MainWindow()
         {
             InitializeComponent();
-            ShikimoriController controller = new ShikimoriController();
-            controller.GetAnimes();
+            controller = new ShikimoriController();
+
+            
+        }
+
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            animesDataGrid.ItemsSource = controller.GetAnimes();
         }
     }
 }

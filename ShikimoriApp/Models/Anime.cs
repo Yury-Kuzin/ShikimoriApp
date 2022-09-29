@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace ShikimoriApp.Models
 {
@@ -17,8 +18,9 @@ namespace ShikimoriApp.Models
             public string Preview { get; set; }
             [JsonPropertyName("x96")]
             public string X96 { get; set; }
+            private string x48;
             [JsonPropertyName("x48")]
-            public string X48 { get; set; }
+            public string X48 { get => $"https://shikimori.one{x48}"; set => this.x48 = value; }
         }
         [JsonPropertyName("id")]
         public int Id { get; set; } = 0;
