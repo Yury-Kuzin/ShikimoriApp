@@ -17,9 +17,16 @@ using System.Windows.Shapes;
 
 namespace ShikimoriApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    // TODO: 1. Сделать возможность открывать окна внутри одного приложения
+    // TODO: 2. Фильтрация по имени
+    // TODO: 3. Фильтрация: 1. Годы 2. Продолжительность
+    // TODO: 4. Сортировка всего списка + Не работает сортировка по имени
+    // TODO: 5. Изучить авторизацию
+    // TODO: 6. Пагинация
+    // TODO: 7. 
+
+
+    // TODO: 999: Получить длительность всех аниме в МИРЕ.
     public partial class MainWindow : Window
     {
         ShikimoriController controller;
@@ -27,13 +34,12 @@ namespace ShikimoriApp
         {
             InitializeComponent();
             controller = new ShikimoriController();
-
-            
+            animesDataGrid.ItemsSource = controller.GetAnimes();
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            animesDataGrid.ItemsSource = controller.GetAnimes();
+            
         }
     }
 }

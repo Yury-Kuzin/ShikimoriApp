@@ -12,12 +12,15 @@ namespace ShikimoriApp.Models
     {
         public class ImageList
         {
+            private string original;
             [JsonPropertyName("original")]
-            public string Original { get; set; }
+            public string Original { get => $"https://shikimori.one{original}"; set => this.original = value; }
+            private string preview;
             [JsonPropertyName("preview")]
-            public string Preview { get; set; }
+            public string Preview { get => $"https://shikimori.one{preview}"; set => this.preview = value; }
+            private string x96;
             [JsonPropertyName("x96")]
-            public string X96 { get; set; }
+            public string X96 { get => $"https://shikimori.one{x96}"; set => this.x96 = value; }
             private string x48;
             [JsonPropertyName("x48")]
             public string X48 { get => $"https://shikimori.one{x48}"; set => this.x48 = value; }

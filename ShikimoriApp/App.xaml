@@ -4,6 +4,31 @@
              xmlns:local="clr-namespace:ShikimoriApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="PlaceholderTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                <TextBlock Text="{TemplateBinding Tag}" IsHitTestVisible="False">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Setter Property="TextElement.Foreground" Value="#FFC9C9C9"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

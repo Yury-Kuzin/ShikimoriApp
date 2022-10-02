@@ -28,7 +28,7 @@ namespace ShikimoriApp
         {
             // season
             // page
-            string param = "api/animes?limit=50&page=250";
+            string param = "api/animes?limit=50&page=1&order=ranked";
             List<Anime> animes = new List<Anime>();
             HttpResponseMessage response = httpClient.GetAsync(param).Result;
             if (response.IsSuccessStatusCode)

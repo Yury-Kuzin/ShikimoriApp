@@ -5,20 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShikimoriApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="870">
+        Title="MainWindow" Height="543" Width="1065">
     <Grid>
-        <DataGrid Margin="120,0,0,0" x:Name="animesDataGrid" AutoGenerateColumns="False" >
+        <DataGrid Margin="258,0,0,0" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Название" Width="250" CanUserSort="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} \ {1}">
+                            <Binding Path="Name" />
+                            <Binding Path="Russian" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding Image.X48}" />
+                            <Image Source="{Binding Image.Preview}" Margin="0,15,0,15" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Score}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="98" Click="searchButton_Click"/>
+        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,68,0,0" VerticalAlignment="Top" Width="98" Click="searchButton_Click"/>
+        <TextBox Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"/>
     </Grid>
 </Window>
