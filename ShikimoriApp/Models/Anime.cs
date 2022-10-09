@@ -12,41 +12,41 @@ namespace ShikimoriApp.Models
     {
         public class ImageList
         {
-            private string original;
+            private string? original;
             [JsonPropertyName("original")]
             public string Original { get => $"https://shikimori.one{original}"; set => this.original = value; }
-            private string preview;
+            private string? preview;
             [JsonPropertyName("preview")]
             public string Preview { get => $"https://shikimori.one{preview}"; set => this.preview = value; }
-            private string x96;
+            private string? x96;
             [JsonPropertyName("x96")]
             public string X96 { get => $"https://shikimori.one{x96}"; set => this.x96 = value; }
-            private string x48;
+            private string? x48;
             [JsonPropertyName("x48")]
             public string X48 { get => $"https://shikimori.one{x48}"; set => this.x48 = value; }
         }
         [JsonPropertyName("id")]
         public int Id { get; set; } = 0;
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [JsonPropertyName("russian")]
-        public string Russian { get; set; }
+        public string? Russian { get; set; }
         [JsonPropertyName("url")]
-        public string URL { get; set; }
+        public string? URL { get; set; }
         [JsonPropertyName("kind")]
-        public string Kind { get; set; }
+        public string? Kind { get; set; }
         [JsonPropertyName("score")]
-        public string Score { get; set; }
+        public string? Score { get; set; }
         [JsonPropertyName("status")]
-        public string Status { get; set; }
+        public string? Status { get; set; }
         [JsonPropertyName("episodes")]
         public int Episodes { get; set; }
         [JsonPropertyName("episodes_aired")]
         public int EpisodesAired { get; set; }
         [JsonPropertyName("aired_on")]
-        public string AiredOn { get; set; }
+        public string? AiredOn { get; set; }
         [JsonPropertyName("released_on")]
-        public string ReleasedOn { get; set; }
+        public string? ReleasedOn { get; set; }
         [JsonPropertyName("image")]
         public ImageList? Image { get; set; }
     }
