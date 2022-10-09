@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShikimoriApp"
+        xmlns:vm="clr-namespace:ShikimoriApp.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="543" Width="1065">
     <Grid>
-        <DataGrid Margin="258,0,0,0" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" >
+        <DataGrid Margin="258,0,0,0" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название" Width="250" CanUserSort="True">
                     <DataGridTextColumn.ElementStyle>
@@ -34,7 +35,7 @@
                 <DataGridTextColumn Header="Рейтинг" Binding="{Binding Score}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,68,0,0" VerticalAlignment="Top" Width="98" Click="searchButton_Click"/>
+        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,68,0,0" VerticalAlignment="Top" Width="98"/>
         <TextBox Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"/>
     </Grid>
 </Window>

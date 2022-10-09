@@ -13,12 +13,12 @@ namespace ShikimoriApp
     /// 
     /// api/animes
     /// 
-    class ShikimoriController
+    class ShikimoriContext
     {
         private const string URL = "https://shikimori.one/";
         private HttpClient httpClient;
 
-        public ShikimoriController()
+        public ShikimoriContext()
         {
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(URL);
