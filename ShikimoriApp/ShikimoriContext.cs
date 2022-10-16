@@ -1,12 +1,8 @@
 ﻿using ShikimoriApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace ShikimoriApp
 {
@@ -24,6 +20,20 @@ namespace ShikimoriApp
             httpClient.BaseAddress = new Uri(URL);
         }
 
+        public AnimeInfo GetAnime(int id)
+        {
+            string param = $"api/animes/{id}";
+            HttpResponseMessage response = httpClient.GetAsync(param).Result;
+            AnimeInfo animeInfo = new AnimeInfo();
+            if (response.IsSuccessStatusCode)
+            {
+                string json = response.Content.ReadAsStringAsync().Result;
+                animeInfo = JsonSerializer.Deserialize<AnimeInfo>(json);
+            }
+
+            return animeInfo;
+        }
+
         public List<Anime>? GetAnimes()
         {
             // season
@@ -34,7 +44,7 @@ namespace ShikimoriApp
             if (response.IsSuccessStatusCode)
             {
                 string json = response.Content.ReadAsStringAsync().Result;
-                animes = JsonSerializer.Deserialize<List<Anime>>(json); 
+                animes = JsonSerializer.Deserialize<List<Anime>>(json);
             }
 
             return animes;

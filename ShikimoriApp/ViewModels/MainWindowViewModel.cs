@@ -21,6 +21,22 @@ namespace ShikimoriApp.ViewModels
             Animes = new ObservableCollection<Anime>(context.GetAnimes());
         }
 
+
+
+        private RelayCommand getAnimeCommand;
+        public RelayCommand GetAnimeCommand
+        {
+            get
+            {
+                return getAnimeCommand ??
+                    (getAnimeCommand = new RelayCommand(obj =>
+                    {
+                        context.GetAnime(Convert.ToInt32(obj));
+                        var o = obj;
+                    }));
+            }
+        }
+
         public void OnPropertyChanged([CallerMemberName] string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));

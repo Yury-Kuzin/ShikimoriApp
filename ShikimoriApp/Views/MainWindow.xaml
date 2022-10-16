@@ -8,7 +8,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="543" Width="1065">
     <Grid>
-        <DataGrid Margin="258,0,0,0" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250">
+        <DataGrid Margin="258,0,0,0" IsReadOnly="True" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250">
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" 
+                            Command="{Binding GetAnimeCommand}"
+                            CommandParameter="{Binding ElementName=animesDataGrid, Path=SelectedItem.Id}"/>
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название" Width="250" CanUserSort="True">
                     <DataGridTextColumn.ElementStyle>
@@ -23,7 +28,7 @@
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
-               
+
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -32,7 +37,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                              
+
 
                 <DataGridTextColumn Header="Рейтинг" Binding="{Binding Score}"/>
             </DataGrid.Columns>
