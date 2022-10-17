@@ -8,12 +8,52 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="543" Width="1065">
     <Grid>
-        <DataGrid Margin="258,0,0,0" IsReadOnly="True" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250">
+        <DataGrid Margin="258,0,0,0" IsReadOnly="True" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250"  SelectionUnit="FullRow">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" 
                             Command="{Binding GetAnimeCommand}"
                             CommandParameter="{Binding ElementName=animesDataGrid, Path=SelectedItem.Id}"/>
             </DataGrid.InputBindings>
+
+            <DataGrid.Resources>
+                <ResourceDictionary>
+                    <Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </DataGrid.Resources>
+
+            <DataGrid.RowHeaderStyle>
+                <Style TargetType="DataGridRowHeader">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowHeaderStyle>
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название" Width="250" CanUserSort="True">
                     <DataGridTextColumn.ElementStyle>
@@ -29,6 +69,7 @@
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
 
+                
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
