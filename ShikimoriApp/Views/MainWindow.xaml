@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShikimoriApp"
-        xmlns:vm="clr-namespace:ShikimoriApp.ViewModels"
+        xmlns:vm="clr-namespace:ShikimoriApp.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="543" Width="1065">
     <Grid>
@@ -42,7 +43,7 @@
                 <DataGridTextColumn Header="Рейтинг" Binding="{Binding Score}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,68,0,0" VerticalAlignment="Top" Width="98"/>
-        <TextBox Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224"/>
+        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,68,0,0" VerticalAlignment="Top" Width="98" Command="{Binding GetAnimesCommand}"/>
+        <TextBox x:Name="searchText" Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>

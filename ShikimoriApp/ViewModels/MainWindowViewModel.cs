@@ -14,16 +14,48 @@ namespace ShikimoriApp.ViewModels
     {
         private ShikimoriContext context = new ShikimoriContext();
         public event PropertyChangedEventHandler? PropertyChanged;
-        public ObservableCollection<Anime>? Animes { get; set; }
+        private ObservableCollection<Anime>? animes;
+        public ObservableCollection<Anime>? Animes
+        {
+            get => animes;
+            set
+            {
+                animes = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string? searchText;
+        public string? SearchText
+        {
+            get { return searchText; }
+            set
+            {
+                searchText = value;
+                OnPropertyChanged("SearchText");
+            }
+        }
 
         public MainWindowViewModel()
         {
-            Animes = new ObservableCollection<Anime>(context.GetAnimes());
+            animes = new ObservableCollection<Anime>(context.GetAnimes());
         }
 
+        private RelayCommand? getAnimesCommand;
+        public RelayCommand GetAnimesCommand
+        {
+            get
+            {
+                return getAnimesCommand ??
+                    (getAnimesCommand = new RelayCommand(obj =>
+                    {
+                        animes.Clear();
+                        animes = new ObservableCollection<Anime>(context.GetAnimes(1, searchText));
+                    }));
+            }
+        }
 
-
-        private RelayCommand getAnimeCommand;
+        private RelayCommand? getAnimeCommand;
         public RelayCommand GetAnimeCommand
         {
             get

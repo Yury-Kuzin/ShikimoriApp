@@ -20,11 +20,11 @@ namespace ShikimoriApp
             httpClient.BaseAddress = new Uri(URL);
         }
 
-        public AnimeInfo GetAnime(int id)
+        public AnimeInfo? GetAnime(int id)
         {
             string param = $"api/animes/{id}";
             HttpResponseMessage response = httpClient.GetAsync(param).Result;
-            AnimeInfo animeInfo = new AnimeInfo();
+            AnimeInfo? animeInfo = new AnimeInfo();
             if (response.IsSuccessStatusCode)
             {
                 string json = response.Content.ReadAsStringAsync().Result;
@@ -34,12 +34,13 @@ namespace ShikimoriApp
             return animeInfo;
         }
 
-        public List<Anime>? GetAnimes()
+        public List<Anime>? GetAnimes(int page = 1, string? name = null)
         {
             // season
-            // page
-            string param = "api/animes?limit=50&page=1&order=ranked";
-            List<Anime> animes = new List<Anime>();
+            string param = $"api/animes?limit=50&page={page}&order=ranked";
+            if (name != null)
+                param += $"&search={name}";
+            List<Anime>? animes = new List<Anime>();
             HttpResponseMessage response = httpClient.GetAsync(param).Result;
             if (response.IsSuccessStatusCode)
             {
