@@ -24,6 +24,16 @@ namespace ShikimoriApp.ViewModels
                 OnPropertyChanged();
             }
         }
+        private Anime anime_;
+        public Anime Anime
+        {
+            get => anime_;
+            set
+            {
+                anime_ = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string? searchText;
         public string? SearchText
@@ -49,8 +59,10 @@ namespace ShikimoriApp.ViewModels
                 return getAnimesCommand ??
                     (getAnimesCommand = new RelayCommand(obj =>
                     {
+                        ShikimoriContext db = new ShikimoriContext();
                         animes.Clear();
                         animes = new ObservableCollection<Anime>(context.GetAnimes(1, searchText));
+                        Update();
                     }));
             }
         }
@@ -72,6 +84,11 @@ namespace ShikimoriApp.ViewModels
         public void OnPropertyChanged([CallerMemberName] string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+        public void Update()
+        {
+            ShikimoriContext db = new ShikimoriContext();
+            Animes = new ObservableCollection<Anime>(db.GetAnimes(1, searchText));
         }
     }
 }

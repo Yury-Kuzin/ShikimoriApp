@@ -11,5 +11,6 @@ namespace ShikimoriApp.Models
     {
         [JsonPropertyName("description")]
         public string? Description { get; set; }
+
     }
 }
