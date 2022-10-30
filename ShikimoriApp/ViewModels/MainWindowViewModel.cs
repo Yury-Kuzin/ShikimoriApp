@@ -24,16 +24,6 @@ namespace ShikimoriApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private Anime anime_;
-        public Anime Anime
-        {
-            get => anime_;
-            set
-            {
-                anime_ = value;
-                OnPropertyChanged();
-            }
-        }
 
         private string? searchText;
         public string? SearchText
@@ -46,9 +36,48 @@ namespace ShikimoriApp.ViewModels
             }
         }
 
+        private int page = 1;
+        public int Page
+        {
+            get { return page; }
+            set
+            {
+                page = value;
+                OnPropertyChanged("Page");
+            }
+        }
+
         public MainWindowViewModel()
         {
             animes = new ObservableCollection<Anime>(context.GetAnimes());
+        }
+
+        private RelayCommand? nextPageCommand;
+        public RelayCommand NextPageCommand
+        {
+            get
+            {
+                return nextPageCommand ??
+                    (nextPageCommand = new RelayCommand(obj =>
+                    {
+                        if (Animes.Count == 50)
+                            Update(++Page);
+                    }));
+            }
+        }
+
+        private RelayCommand? prevPageCommand;
+        public RelayCommand PrevPageCommand
+        {
+            get
+            {
+                return prevPageCommand ??
+                    (prevPageCommand = new RelayCommand(obj =>
+                    {
+                        if (Page > 1)
+                            Update(--Page);
+                    }));
+            }
         }
 
         private RelayCommand? getAnimesCommand;
@@ -59,10 +88,8 @@ namespace ShikimoriApp.ViewModels
                 return getAnimesCommand ??
                     (getAnimesCommand = new RelayCommand(obj =>
                     {
-                        ShikimoriContext db = new ShikimoriContext();
-                        animes.Clear();
-                        animes = new ObservableCollection<Anime>(context.GetAnimes(1, searchText));
                         Update();
+                        Page = 1;
                     }));
             }
         }
@@ -76,7 +103,6 @@ namespace ShikimoriApp.ViewModels
                     (getAnimeCommand = new RelayCommand(obj =>
                     {
                         context.GetAnime(Convert.ToInt32(obj));
-                        var o = obj;
                     }));
             }
         }
@@ -85,10 +111,10 @@ namespace ShikimoriApp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
-        public void Update()
+        public void Update(int page = 1)
         {
-            ShikimoriContext db = new ShikimoriContext();
-            Animes = new ObservableCollection<Anime>(db.GetAnimes(1, searchText));
+            animes.Clear();
+            Animes = new ObservableCollection<Anime>(context.GetAnimes(page, searchText));
         }
     }
 }

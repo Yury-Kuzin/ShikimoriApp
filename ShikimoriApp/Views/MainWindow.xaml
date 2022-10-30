@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:ShikimoriApp.ViewModels" 
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="543" Width="1065">
+        Title="MainWindow" Height="564" Width="1065">
     <Grid>
         <DataGrid Margin="258,0,0,0" IsReadOnly="True" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250"  SelectionUnit="FullRow">
             <DataGrid.InputBindings>
@@ -70,7 +70,7 @@
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
 
-                
+
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -84,7 +84,10 @@
                 <DataGridTextColumn Header="Рейтинг" Binding="{Binding Score}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,68,0,0" VerticalAlignment="Top" Width="98" Command="{Binding GetAnimesCommand}"/>
+        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,68,0,0" VerticalAlignment="Top" Width="98" Command="{Binding GetAnimesCommand}" />
         <TextBox x:Name="searchText" Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button x:Name="leftButton" Content="➔" HorizontalAlignment="Left" Margin="39,492,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" FontSize="16" Width="39" Command="{Binding PrevPageCommand}" />
+        <Button x:Name="rightButton" Content="➔" HorizontalAlignment="Left" Margin="167,492,0,0" VerticalAlignment="Top" FontSize="16" Width="39" Command="{Binding NextPageCommand}"/>
+        <Label x:Name="pageLabel" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="83,492,0,0" VerticalAlignment="Top" Width="79" Height="25" Content="{Binding Page, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>
