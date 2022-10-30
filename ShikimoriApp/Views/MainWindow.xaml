@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="564" Width="1065">
     <Grid>
-        <DataGrid Margin="258,0,0,0" IsReadOnly="True" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250"  SelectionUnit="FullRow">
+        <DataGrid Margin="258,0,0,0" IsReadOnly="True" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250"  SelectionUnit="FullRow" ScrollViewer.CanContentScroll="False">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" 
                             Command="{Binding GetAnimeCommand}"
