@@ -1,6 +1,7 @@
 ﻿using ShikimoriApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 
@@ -49,6 +50,19 @@ namespace ShikimoriApp
             }
 
             return animes;
+        }
+
+        public List<Genre>? GetGenres()
+        {
+            string param = "api/genres";
+            List<Genre>? genres = new List<Genre>();
+            HttpResponseMessage response = httpClient.GetAsync(param).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string json = response.Content.ReadAsStringAsync().Result;
+                genres = JsonSerializer.Deserialize<List<Genre>>(json);
+            }
+            return genres.Where(o => o.Kind == "anime").ToList();
         }
     }
 }

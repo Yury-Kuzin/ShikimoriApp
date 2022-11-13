@@ -14,6 +14,16 @@ namespace ShikimoriApp.ViewModels
     {
         private ShikimoriContext context = new ShikimoriContext();
         public event PropertyChangedEventHandler? PropertyChanged;
+        private ObservableCollection<Genre>? genres;
+        public ObservableCollection<Genre> Genres
+        {
+            get => genres;
+            set
+            {
+                genres = value;
+                OnPropertyChanged();
+            }
+        }
         private ObservableCollection<Anime>? animes;
         public ObservableCollection<Anime>? Animes
         {
@@ -50,6 +60,7 @@ namespace ShikimoriApp.ViewModels
         public MainWindowViewModel()
         {
             animes = new ObservableCollection<Anime>(context.GetAnimes());
+            genres = new ObservableCollection<Genre>(context.GetGenres());
         }
 
         private RelayCommand? nextPageCommand;

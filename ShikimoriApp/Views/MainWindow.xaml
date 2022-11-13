@@ -84,10 +84,20 @@
                 <DataGridTextColumn Header="Рейтинг" Binding="{Binding Score}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,68,0,0" VerticalAlignment="Top" Width="98" Command="{Binding GetAnimesCommand}" />
+        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,259,0,0" VerticalAlignment="Top" Width="98" Command="{Binding GetAnimesCommand}" />
         <TextBox x:Name="searchText" Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
         <Button x:Name="leftButton" Content="➔" HorizontalAlignment="Left" Margin="39,492,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" FontSize="16" Width="39" Command="{Binding PrevPageCommand}" />
         <Button x:Name="rightButton" Content="➔" HorizontalAlignment="Left" Margin="167,492,0,0" VerticalAlignment="Top" FontSize="16" Width="39" Command="{Binding NextPageCommand}"/>
         <Label x:Name="pageLabel" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="83,492,0,0" VerticalAlignment="Top" Width="79" Height="25" Content="{Binding Page, UpdateSourceTrigger=PropertyChanged}"/>
+        <ListBox ItemsSource="{Binding Genres}" SelectionMode="Multiple" Margin="10,43,831,357">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <CheckBox IsChecked="{Binding Path=IsSelected}" Content="{Binding Path=Russian}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
     </Grid>
 </Window>
