@@ -7,9 +7,36 @@
         xmlns:vm="clr-namespace:ShikimoriApp.ViewModels" 
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="564" Width="1065">
+        Title="ShikimoriAPP" Height="564" Width="1065" FontFamily="Bahnschrift Condensed" FontSize="16.4" >
     <Grid>
-        <DataGrid Margin="258,0,0,0" IsReadOnly="True" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250"  SelectionUnit="FullRow" ScrollViewer.CanContentScroll="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="255"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="44*"/>
+                <RowDefinition Height="178*"/>
+                <RowDefinition Height="266*"/>
+                <RowDefinition Height="27*"/>
+                <RowDefinition Height="33*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="2" x:Name="searchButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Width="98" Command="{Binding GetAnimesCommand}" Height="20" />
+            <TextBox x:Name="searchText" Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="224" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Height="18" Margin="7,0,0,0"/>
+            <Button x:Name="leftButton" Content="🢀" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Width="39" Command="{Binding PrevPageCommand}" Grid.Row="3" Margin="2,0,0,0"/>
+            <Button x:Name="rightButton" Content="🢂" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Width="39" Command="{Binding NextPageCommand}" Grid.Row="3"/>
+            <Label x:Name="pageLabel" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="25" Content="{Binding Page, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3"/>
+            <ListBox Grid.Row="1" ItemsSource="{Binding Genres}" SelectionMode="Multiple" Margin="12,8,13,7">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <CheckBox IsChecked="{Binding Path=IsSelected}" Content="{Binding Path=Russian}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <DataGrid Grid.Column="2" IsReadOnly="True" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250"  SelectionUnit="FullRow" ScrollViewer.CanContentScroll="False">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" 
                             Command="{Binding GetAnimeCommand}"
@@ -84,20 +111,7 @@
                 <DataGridTextColumn Header="Рейтинг" Binding="{Binding Score}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="73,259,0,0" VerticalAlignment="Top" Width="98" Command="{Binding GetAnimesCommand}" />
-        <TextBox x:Name="searchText" Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button x:Name="leftButton" Content="➔" HorizontalAlignment="Left" Margin="39,492,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" FontSize="16" Width="39" Command="{Binding PrevPageCommand}" />
-        <Button x:Name="rightButton" Content="➔" HorizontalAlignment="Left" Margin="167,492,0,0" VerticalAlignment="Top" FontSize="16" Width="39" Command="{Binding NextPageCommand}"/>
-        <Label x:Name="pageLabel" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="83,492,0,0" VerticalAlignment="Top" Width="79" Height="25" Content="{Binding Page, UpdateSourceTrigger=PropertyChanged}"/>
-        <ListBox ItemsSource="{Binding Genres}" SelectionMode="Multiple" Margin="10,43,831,357">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <CheckBox IsChecked="{Binding Path=IsSelected}" Content="{Binding Path=Russian}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+
 
     </Grid>
 </Window>
