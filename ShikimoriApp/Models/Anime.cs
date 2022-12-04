@@ -39,8 +39,6 @@ namespace ShikimoriApp.Models
         public string? Score { get; set; }
         [JsonPropertyName("status")]
         public string? Status { get; set; }
-        [JsonPropertyName("episodes")]
-        public int Episodes { get; set; }
         [JsonPropertyName("episodes_aired")]
         public int EpisodesAired { get; set; }
         [JsonPropertyName("aired_on")]

@@ -1,4 +1,5 @@
 ﻿using ShikimoriApp.Models;
+using ShikimoriApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -113,7 +114,9 @@ namespace ShikimoriApp.ViewModels
                 return getAnimeCommand ??
                     (getAnimeCommand = new RelayCommand(obj =>
                     {
-                        context.GetAnime(Convert.ToInt32(obj));
+                        int id = Convert.ToInt32(obj);
+                        AnimeWindow animeWindow = new AnimeWindow(id);
+                        animeWindow.Show();
                     }));
             }
         }
