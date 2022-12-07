@@ -35,12 +35,15 @@ namespace ShikimoriApp
             return animeInfo;
         }
 
-        public List<Anime>? GetAnimes(int page = 1, string? name = null)
+        public List<Anime>? GetAnimes(int page = 1, string? name = null, int[]? genres = null)
         {
-            // season
             string param = $"api/animes?limit=50&page={page}&order=ranked";
             if (name != null)
                 param += $"&search={name}";
+            if (genres != null)
+            {
+                param += $"&genre={string.Join(",", genres)}";
+            }
             List<Anime>? animes = new List<Anime>();
             HttpResponseMessage response = httpClient.GetAsync(param).Result;
             if (response.IsSuccessStatusCode)
@@ -50,6 +53,26 @@ namespace ShikimoriApp
             }
 
             return animes;
+        }
+
+        public Dictionary<DateOnly, List<CalendarItem>> GetCalendar()
+        {
+            string param = $"api/calendar";
+            List<CalendarItem>? list = new List<CalendarItem>();
+            Dictionary<DateOnly, List<CalendarItem>> dict = new Dictionary<DateOnly, List<CalendarItem>>();
+            HttpResponseMessage response = httpClient.GetAsync(param).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string json = response.Content.ReadAsStringAsync().Result;
+                list = JsonSerializer.Deserialize<List<CalendarItem>>(json);
+            }
+            dict = list.GroupBy(o => DateOnly.FromDateTime(DateTime.Parse(o.NextEpisodeAt))).ToDictionary(i => i.Key, i => i.ToList());
+            /*dict = (from o in list
+                    group o by DateOnly.FromDateTime(DateTime.Parse(o.NextEpisodeAt))
+                    into oGrouped
+                    select oGrouped).ToDictionary(d => d.Key, d => d.ToList<AnimeInfo>());*/
+
+            return dict;
         }
 
         public List<Genre>? GetGenres()

@@ -15,8 +15,8 @@ namespace ShikimoriApp.ViewModels
     {
         private ShikimoriContext context = new ShikimoriContext();
         public event PropertyChangedEventHandler? PropertyChanged;
-        private ObservableCollection<Genre>? genres;
-        public ObservableCollection<Genre> Genres
+        private ObservableCollection<GenreListItem>? genres;
+        public ObservableCollection<GenreListItem>? Genres
         {
             get => genres;
             set
@@ -61,7 +61,9 @@ namespace ShikimoriApp.ViewModels
         public MainWindowViewModel()
         {
             animes = new ObservableCollection<Anime>(context.GetAnimes());
-            genres = new ObservableCollection<Genre>(context.GetGenres());
+            List<GenreListItem>? list = context.GetGenres().Select(o => new GenreListItem(o, false)).ToList();
+            genres = new ObservableCollection<GenreListItem>(list);
+            context.GetCalendar();
         }
 
         private RelayCommand? nextPageCommand;
@@ -128,7 +130,8 @@ namespace ShikimoriApp.ViewModels
         public void Update(int page = 1)
         {
             animes.Clear();
-            Animes = new ObservableCollection<Anime>(context.GetAnimes(page, searchText));
+            int[]? genres = Genres.Where(o => o.Selected).Select(s => s.Genre.Id).ToArray();
+            Animes = new ObservableCollection<Anime>(context.GetAnimes(page, searchText, genres));
         }
     }
 }

@@ -34,8 +34,10 @@ namespace ShikimoriApp.Models
         [JsonPropertyName("screenshots")]
         public ScreenshotItem[] Screenshots { get; set; }
         [JsonPropertyName("duration")]
-        public int Duration { get; set; }
+        public int? Duration { get; set; }
         [JsonPropertyName("episodes")]
         public int Episodes { get; set; }
+        [JsonPropertyName("next_episode_at")]
+        public string? NextEpisodeAt { get; set; }
     }
 }
