@@ -66,12 +66,8 @@ namespace ShikimoriApp
                 string json = response.Content.ReadAsStringAsync().Result;
                 list = JsonSerializer.Deserialize<List<CalendarItem>>(json);
             }
-            dict = list.GroupBy(o => DateOnly.FromDateTime(DateTime.Parse(o.NextEpisodeAt))).ToDictionary(i => i.Key, i => i.ToList());
-            /*dict = (from o in list
-                    group o by DateOnly.FromDateTime(DateTime.Parse(o.NextEpisodeAt))
-                    into oGrouped
-                    select oGrouped).ToDictionary(d => d.Key, d => d.ToList<AnimeInfo>());*/
-
+            dict = list.GroupBy(o => DateOnly.FromDateTime(DateTime.Parse(o.NextEpisodeAt)))
+                       .ToDictionary(i => i.Key, i => i.ToList());
             return dict;
         }
 
