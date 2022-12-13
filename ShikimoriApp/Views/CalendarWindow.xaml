@@ -9,15 +9,15 @@
         mc:Ignorable="d"
         Title="CalendarWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding}">
+        <DataGrid ItemsSource="{Binding Path=Items}" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="False" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Дата выхода" Width="110" />
+                <DataGridTextColumn Header="Дата выхода" Width="110" Binding="{Binding Path=Key}" />
                 <DataGridTemplateColumn Header="Время">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DataGrid>
+                            <DataGrid ItemsSource="{Binding Path=Value}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" IsHitTestVisible="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Width="*" Header="Time" Binding="{Binding}"/>
+                                    <DataGridTextColumn Width="*" Header="Time" Binding="{Binding Duration}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </DataTemplate>
@@ -26,9 +26,9 @@
                 <DataGridTemplateColumn Header="Название" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DataGrid>
+                            <DataGrid ItemsSource="{Binding Path=Value}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" IsHitTestVisible="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Width="*" Header="Name" Binding="{Binding}"/>
+                                    <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Anime.Russian}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </DataTemplate>

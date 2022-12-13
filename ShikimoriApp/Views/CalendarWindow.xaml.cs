@@ -24,6 +24,7 @@ namespace ShikimoriApp.Views
         {
             DataContext = new CalendarWindowViewModel();
             InitializeComponent();
+
         }
     }
 }

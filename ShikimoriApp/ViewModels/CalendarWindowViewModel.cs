@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShikimoriApp.ViewModels
 {
-    class CalendarWindowViewModel : INotifyPropertyChanged
+    internal class CalendarWindowViewModel : INotifyPropertyChanged
     {
         private ShikimoriContext context = new ShikimoriContext();
         private Dictionary<DateOnly, List<CalendarItem>>? items;

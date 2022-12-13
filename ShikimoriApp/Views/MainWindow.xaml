@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="25">
             <MenuItem Header="File" Height="25">
-                <MenuItem Header="Calendar"></MenuItem>
+                <MenuItem Header="Calendar" Command="{Binding CalendarOpen}"></MenuItem>
                 <MenuItem Header="Family control" IsCheckable="True"/>
                 <Separator />
                 <MenuItem Header="Exit"></MenuItem>

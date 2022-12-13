@@ -123,6 +123,20 @@ namespace ShikimoriApp.ViewModels
             }
         }
 
+        private RelayCommand? calendarOpen;
+        public RelayCommand CalendarOpen
+        {
+            get
+            {
+                return calendarOpen ??
+                    (calendarOpen = new RelayCommand(obj =>
+                    {
+                        CalendarWindow calendarWindow = new CalendarWindow();
+                        calendarWindow.Show();
+                    }));
+            }
+        }
+
         public void OnPropertyChanged([CallerMemberName] string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
