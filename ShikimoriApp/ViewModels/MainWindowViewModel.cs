@@ -15,6 +15,7 @@ namespace ShikimoriApp.ViewModels
     {
         private ShikimoriContext context = new ShikimoriContext();
         public event PropertyChangedEventHandler? PropertyChanged;
+        private bool isProhibitedContent = true;
         private ObservableCollection<GenreListItem>? genres;
         public ObservableCollection<GenreListItem>? Genres
         {
@@ -133,6 +134,21 @@ namespace ShikimoriApp.ViewModels
                     {
                         CalendarWindow calendarWindow = new CalendarWindow();
                         calendarWindow.Show();
+                    }));
+            }
+        }
+
+        private RelayCommand? passwordEnter;
+        public RelayCommand PasswordEnter
+        {
+            get
+            {
+                return passwordEnter ??
+                    (passwordEnter = new RelayCommand(obj =>
+                    {
+                        PasswordWindow passwordWindow = new PasswordWindow();
+                        isProhibitedContent = passwordWindow.ShowDialog().Value;
+
                     }));
             }
         }

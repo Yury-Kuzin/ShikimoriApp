@@ -18,13 +18,15 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="25">
-            <MenuItem Header="File" Height="25">
-                <MenuItem Header="Calendar" Command="{Binding CalendarOpen}"></MenuItem>
-                <MenuItem Header="Family control" IsCheckable="True"/>
+            <MenuItem Header="Файл" Height="25">
+                <MenuItem Header="Календарь" Command="{Binding CalendarOpen}"></MenuItem>
+                <MenuItem Header="Родительский контроль" IsCheckable="True" Command="{Binding PasswordEnter, UpdateSourceTrigger=PropertyChanged}" />
                 <Separator />
-                <MenuItem Header="Exit"></MenuItem>
+                <MenuItem Header="Выход"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Help"></MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="О программе"></MenuItem>
+            </MenuItem>
         </Menu>
         <Grid Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -34,8 +36,12 @@
                 <RowDefinition Height="27*"/>
                 <RowDefinition Height="33*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="2" x:Name="searchButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Width="98" Command="{Binding GetAnimesCommand}" Height="20" />
-            <TextBox x:Name="searchText" Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="235" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Height="24" Margin="7,0,0,0"/>
+            <Button Grid.Row="2" x:Name="searchButton" Content="Поиск" HorizontalAlignment="Center" VerticalAlignment="Center" Width="98" Command="{Binding GetAnimesCommand}" Height="20" />
+            <TextBox x:Name="searchText" Style="{StaticResource PlaceholderTextBox}" Tag=" Название" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="235" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Height="24" Margin="7,0,0,0">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding GetAnimesCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
             <Button x:Name="leftButton" Content="🢀" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Width="39" Command="{Binding PrevPageCommand}" Grid.Row="3" Margin="10,0,0,0"/>
             <Button x:Name="rightButton" Content="🢂" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Width="40" Command="{Binding NextPageCommand}" Grid.Row="3" Margin="205,0,0,0"/>
             <Label x:Name="pageLabel" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="25" Content="{Binding Page, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3"/>
