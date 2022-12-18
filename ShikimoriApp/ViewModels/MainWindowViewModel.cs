@@ -15,7 +15,7 @@ namespace ShikimoriApp.ViewModels
     {
         private ShikimoriContext context = new ShikimoriContext();
         public event PropertyChangedEventHandler? PropertyChanged;
-        private bool isProhibitedContent = true;
+
         private ObservableCollection<GenreListItem>? genres;
         public ObservableCollection<GenreListItem>? Genres
         {
@@ -24,6 +24,16 @@ namespace ShikimoriApp.ViewModels
             {
                 genres = value;
                 OnPropertyChanged();
+            }
+        }
+        private bool isProhibitedContent;
+        public bool IsProhibitedContent
+        {
+            get => isProhibitedContent;
+            set
+            {
+                isProhibitedContent = value;
+                OnPropertyChanged("IsProhibitedContent");
             }
         }
         private ObservableCollection<Anime>? animes;
@@ -65,6 +75,7 @@ namespace ShikimoriApp.ViewModels
             List<GenreListItem>? list = context.GetGenres().Select(o => new GenreListItem(o, false)).ToList();
             genres = new ObservableCollection<GenreListItem>(list);
             context.GetCalendar();
+            isProhibitedContent = true;
         }
 
         private RelayCommand? nextPageCommand;
@@ -147,8 +158,8 @@ namespace ShikimoriApp.ViewModels
                     (passwordEnter = new RelayCommand(obj =>
                     {
                         PasswordWindow passwordWindow = new PasswordWindow();
-                        isProhibitedContent = passwordWindow.ShowDialog().Value;
-
+                        IsProhibitedContent = passwordWindow.ShowDialog().Value;
+                        int a = 0;
                     }));
             }
         }

@@ -15,7 +15,6 @@ namespace ShikimoriApp.ViewModels
     {
         private Window window;
         private string password;
-        private bool? dialogResult;
         public event PropertyChangedEventHandler? PropertyChanged;
         public PasswordWindowViewModel(Window window)
         {
@@ -23,13 +22,15 @@ namespace ShikimoriApp.ViewModels
             password = "123456";
         }
 
-        public bool? DialogResult
+        private bool dialogResult;
+        public bool DialogResult
         {
             get { return dialogResult; }
             set
             {
                 dialogResult = value;
                 OnPropertyChanged("DialogResult");
+
             }
         }
 
@@ -44,13 +45,28 @@ namespace ShikimoriApp.ViewModels
             }
         }
 
+        private string errorText;
+        public string ErrorText
+        {
+            get { return errorText; }
+            set
+            {
+                errorText = value;
+                OnPropertyChanged("ErrorText");
+            }
+        }
+
         private RelayCommand? checkPassword;
         public RelayCommand CheckPassword => checkPassword ??
                     (checkPassword = new RelayCommand(obj =>
                     {
                         string inputPassword = ((PasswordBox)obj).Password;
-                        dialogResult = inputPassword == password;
-                        if (dialogResult == false)
+                        DialogResult = inputPassword == password;
+                        if (DialogResult)
+                            ErrorText = "";
+                        else
+                            ErrorText = "Пароль введён неверно!";
+                        if (DialogResult)
                             window.Close();
 
                     }));
