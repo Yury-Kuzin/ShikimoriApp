@@ -158,8 +158,21 @@ namespace ShikimoriApp.ViewModels
                     (passwordEnter = new RelayCommand(obj =>
                     {
                         PasswordWindow passwordWindow = new PasswordWindow();
-                        IsProhibitedContent = passwordWindow.ShowDialog().Value;
-                        int a = 0;
+                        IsProhibitedContent = (passwordWindow.ShowDialog().Value ? !IsProhibitedContent : IsProhibitedContent);
+                    }));
+            }
+        }
+
+        private RelayCommand? animeListOpen;
+        public RelayCommand AnimeListOpen
+        {
+            get
+            {
+                return animeListOpen ??
+                    (animeListOpen = new RelayCommand(obj =>
+                    {
+                        MyAnimeListWindow myAnimeListWindow = new MyAnimeListWindow();
+                        myAnimeListWindow.ShowDialog();
                     }));
             }
         }
@@ -172,7 +185,7 @@ namespace ShikimoriApp.ViewModels
         {
             animes.Clear();
             int[]? genres = Genres.Where(o => o.Selected).Select(s => s.Genre.Id).ToArray();
-            Animes = new ObservableCollection<Anime>(context.GetAnimes(page, searchText, genres));
+            Animes = new ObservableCollection<Anime>(context.GetAnimes(page, searchText, genres, isProhibitedContent));
         }
     }
 }

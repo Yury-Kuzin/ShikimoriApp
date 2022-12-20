@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShikimoriApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace ShikimoriApp.Views
     {
         public MyAnimeListWindow()
         {
+            DataContext = new MyAnimeListWindowViewModel();
             InitializeComponent();
         }
     }

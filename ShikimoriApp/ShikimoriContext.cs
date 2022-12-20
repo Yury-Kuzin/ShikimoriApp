@@ -12,6 +12,7 @@ namespace ShikimoriApp
     /// 
     class ShikimoriContext
     {
+        public enum ListStatus { Planned, Watching, Completed, Dropped };
         private const string URL = "https://shikimori.one/";
         private HttpClient httpClient;
 
@@ -35,7 +36,7 @@ namespace ShikimoriApp
             return animeInfo;
         }
 
-        public List<Anime>? GetAnimes(int page = 1, string? name = null, int[]? genres = null)
+        public List<Anime>? GetAnimes(int page = 1, string? name = null, int[]? genres = null, bool isProhibitedContent = true)
         {
             string param = $"api/animes?limit=50&page={page}&order=ranked";
             if (name != null)
@@ -43,6 +44,10 @@ namespace ShikimoriApp
             if (genres != null)
             {
                 param += $"&genre={string.Join(",", genres)}";
+            }
+            if (!isProhibitedContent)
+            {
+                param += "&rating=g,pg,pg_13";
             }
             List<Anime>? animes = new List<Anime>();
             HttpResponseMessage response = httpClient.GetAsync(param).Result;
@@ -82,6 +87,42 @@ namespace ShikimoriApp
                 genres = JsonSerializer.Deserialize<List<Genre>>(json);
             }
             return genres.Where(o => o.Kind == "anime").ToList();
+        }
+
+        public List<AnimeInfo>? GetPersonalList(ListStatus status)
+        {
+            string param = $"api/v2/user_rates?user_id=1009362";
+            switch (status)
+            {
+                case ListStatus.Planned:
+                    param += "&status=planned";
+                    break;
+                case ListStatus.Completed:
+                    param += "&status=completed";
+                    break;
+                case ListStatus.Dropped:
+                    param += "&status=dropped";
+                    break;
+                case ListStatus.Watching:
+                    param += "&status=watching";
+                    break;
+            }
+            List<UserRate>? rates = new List<UserRate>();
+            List<AnimeInfo>? animes = new List<AnimeInfo>();
+            HttpResponseMessage response = httpClient.GetAsync(param).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string json = response.Content.ReadAsStringAsync().Result;
+                rates = JsonSerializer.Deserialize<List<UserRate>>(json);
+            }
+            foreach (UserRate item in rates)
+            {
+                AnimeInfo? anime = GetAnime(item.AnimeID);
+                if (anime == null || anime.Name == null)
+                    continue;
+                animes.Add(anime);
+            }
+            return animes;
         }
     }
 }

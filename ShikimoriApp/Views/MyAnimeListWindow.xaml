@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShikimoriApp.Views"
+        xmlns:l="clr-namespace:ShikimoriApp"
+        xmlns:vm="clr-namespace:ShikimoriApp.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=vm:MyAnimeListWindowViewModel}"
         mc:Ignorable="d"
         Title="MyAnimeListWindow" Height="450" Width="800">
     <Grid>
@@ -11,16 +14,83 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <GroupBox Grid.Column="0" Header="Тип списка" Padding="6" Margin="15,10,15,323">
+        <GroupBox Grid.Column="0" Header="Тип списка" Padding="6" Margin="15,10,15,284">
             <StackPanel>
-                <RadioButton Height="20" Content="Запланированно" GroupName="ListType" IsChecked="True"/>
-                <RadioButton Height="20" Content="Смотрю" GroupName="ListType"/>
-                <RadioButton Height="20" Content="Просмотренно" GroupName="ListType"/>
-                <RadioButton Height="20" Content="Брошено" GroupName="ListType"/>
+                <RadioButton Command="{Binding RadioSelectedChanged}" CommandParameter="0" Height="20" Content="Запланированно" GroupName="ListType" IsChecked="True"/>
+                <RadioButton Command="{Binding RadioSelectedChanged}" CommandParameter="1" Height="20" Content="Смотрю" GroupName="ListType"/>
+                <RadioButton Command="{Binding RadioSelectedChanged}" CommandParameter="2" Height="20" Content="Просмотренно" GroupName="ListType"/>
+                <RadioButton Command="{Binding RadioSelectedChanged}" CommandParameter="3" Height="20" Content="Брошено" GroupName="ListType"/>
             </StackPanel>
         </GroupBox>
-        <DataGrid Grid.Column="1">
+        <DataGrid Grid.Column="1" IsReadOnly="True" x:Name="animesDataGrid" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF779277" ItemsSource="{Binding Animes}" RowHeight="250"  SelectionUnit="FullRow" ScrollViewer.CanContentScroll="False">
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" 
+                            Command="{Binding GetAnimeCommand}"
+                            CommandParameter="{Binding ElementName=animesDataGrid, Path=SelectedItem.Id}"/>
+            </DataGrid.InputBindings>
 
+            <DataGrid.Resources>
+                <ResourceDictionary>
+                    <Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </DataGrid.Resources>
+
+            <DataGrid.RowHeaderStyle>
+                <Style TargetType="DataGridRowHeader">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowHeaderStyle>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Width="250" CanUserSort="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0}&#x0a;{1}">
+                            <Binding Path="Name" />
+                            <Binding Path="Russian" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Image.Preview}" Margin="0,15,0,15" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Score}"/>
+            </DataGrid.Columns>
         </DataGrid>
 
     </Grid>

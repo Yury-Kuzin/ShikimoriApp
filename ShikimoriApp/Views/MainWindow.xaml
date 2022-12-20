@@ -20,7 +20,8 @@
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="25">
             <MenuItem Header="Файл" Height="25">
                 <MenuItem Header="Календарь" Command="{Binding CalendarOpen}"></MenuItem>
-                <MenuItem Header="Родительский контроль" IsCheckable="{Binding IsProhibitedContent, Converter={StaticResource BooleanToVisibility}}" Command="{Binding PasswordEnter, UpdateSourceTrigger=PropertyChanged}" />
+                <MenuItem Header="Мои списки" Command="{Binding AnimeListOpen}"></MenuItem>
+                <MenuItem Header="Родительский контроль" IsCheckable="{Binding IsProhibitedContent}" Command="{Binding PasswordEnter, UpdateSourceTrigger=PropertyChanged}" />
                 <Separator />
                 <MenuItem Header="Выход"></MenuItem>
             </MenuItem>

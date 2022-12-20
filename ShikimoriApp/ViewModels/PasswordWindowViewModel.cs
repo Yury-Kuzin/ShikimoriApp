@@ -62,6 +62,7 @@ namespace ShikimoriApp.ViewModels
                     {
                         string inputPassword = ((PasswordBox)obj).Password;
                         DialogResult = inputPassword == password;
+                        this.window.DialogResult = DialogResult;
                         if (DialogResult)
                             ErrorText = "";
                         else
