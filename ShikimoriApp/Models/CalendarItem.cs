@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShikimoriApp.Models
 {
-    class CalendarItem
+    public class CalendarItem
     {
         [JsonPropertyName("duration")]
         public int? Duration { get; set; }
@@ -17,5 +17,6 @@ namespace ShikimoriApp.Models
         public string? NextEpisodeAt { get; set; }
         [JsonPropertyName("anime")]
         public Anime? Anime { get; set; }
+        public TimeOnly Time { get => TimeOnly.FromDateTime(DateTime.Parse(NextEpisodeAt)); }
     }
 }

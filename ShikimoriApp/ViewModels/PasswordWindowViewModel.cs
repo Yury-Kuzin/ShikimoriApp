@@ -1,11 +1,5 @@
-﻿using ShikimoriApp.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,12 +8,17 @@ namespace ShikimoriApp.ViewModels
     class PasswordWindowViewModel : INotifyPropertyChanged
     {
         private Window window;
-        private string password;
         public event PropertyChangedEventHandler? PropertyChanged;
         public PasswordWindowViewModel(Window window)
         {
             this.window = window;
-            password = "123456";
+            this.window.Closing += Window_Closing;
+            DialogResult = false;
+        }
+
+        private void Window_Closing(object? sender, CancelEventArgs e)
+        {
+            this.window.DialogResult = DialogResult;
         }
 
         private bool dialogResult;
@@ -61,14 +60,17 @@ namespace ShikimoriApp.ViewModels
                     (checkPassword = new RelayCommand(obj =>
                     {
                         string inputPassword = ((PasswordBox)obj).Password;
-                        DialogResult = inputPassword == password;
-                        this.window.DialogResult = DialogResult;
+                        string pwd = Properties.Settings.Default.Password;
+                        DialogResult = inputPassword == pwd;
+
                         if (DialogResult)
+                        {
+                            this.window.DialogResult = DialogResult;
                             ErrorText = "";
+                            window.Close();
+                        }
                         else
                             ErrorText = "Пароль введён неверно!";
-                        if (DialogResult)
-                            window.Close();
 
                     }));
 

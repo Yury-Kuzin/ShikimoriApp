@@ -1,4 +1,5 @@
-﻿using ShikimoriApp.Models;
+﻿using ShikimoriApp.Exceptions;
+using ShikimoriApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,7 @@ using System.Text.Json;
 
 namespace ShikimoriApp
 {
-    /// 
-    /// api/animes
-    /// 
-    class ShikimoriContext
+    public class ShikimoriContext
     {
         public enum ListStatus { Planned, Watching, Completed, Dropped };
         private const string URL = "https://shikimori.one/";
@@ -32,11 +30,13 @@ namespace ShikimoriApp
                 string json = response.Content.ReadAsStringAsync().Result;
                 animeInfo = JsonSerializer.Deserialize<AnimeInfo>(json);
             }
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                throw new AnimeIDNotFoundException("Anime ID is Not found");
 
             return animeInfo;
         }
 
-        public List<Anime>? GetAnimes(int page = 1, string? name = null, int[]? genres = null, bool isProhibitedContent = true)
+        public List<Anime>? GetAnimes(int page = 1, string? name = null, bool isProhibitedContent = true, int[]? genres = null)
         {
             string param = $"api/animes?limit=50&page={page}&order=ranked";
             if (name != null)

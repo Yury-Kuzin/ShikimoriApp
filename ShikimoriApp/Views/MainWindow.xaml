@@ -21,7 +21,7 @@
             <MenuItem Header="Файл" Height="25">
                 <MenuItem Header="Календарь" Command="{Binding CalendarOpen}"></MenuItem>
                 <MenuItem Header="Мои списки" Command="{Binding AnimeListOpen}"></MenuItem>
-                <MenuItem Header="Родительский контроль" IsCheckable="{Binding IsProhibitedContent}" Command="{Binding PasswordEnter, UpdateSourceTrigger=PropertyChanged}" />
+                <MenuItem Header="Родительский контроль" Command="{Binding PasswordEnter, UpdateSourceTrigger=PropertyChanged}" />
                 <Separator />
                 <MenuItem Header="Выход"></MenuItem>
             </MenuItem>
@@ -126,5 +126,6 @@
                 <DataGridTextColumn Header="Рейтинг" Binding="{Binding Score}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Grid.Column="1" Content="{Binding ProhibitedText}" HorizontalAlignment="Left" Margin="666,0,0,0" VerticalAlignment="Center" />
     </Grid>
 </Window>
