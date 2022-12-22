@@ -8,7 +8,7 @@ using System.Windows.Navigation;
 
 namespace ShikimoriApp.Models
 {
-    class Anime
+    public class Anime
     {
         public class ImageList
         {

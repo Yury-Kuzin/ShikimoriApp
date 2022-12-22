@@ -9,15 +9,15 @@
         mc:Ignorable="d"
         Title="CalendarWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=Items}" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="False" >
+        <DataGrid ItemsSource="{Binding Path=Items}" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Дата выхода" Width="110" Binding="{Binding Path=Key}" />
-                <DataGridTemplateColumn Header="Время">
+                <DataGridTextColumn Header="Дата выхода" Width="110" Binding="{Binding Path=Key, StringFormat=dd.MM.yyyy}" />
+                <DataGridTemplateColumn Header="Время" Width="80">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DataGrid ItemsSource="{Binding Path=Value}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserAddRows="False" IsHitTestVisible="False">
+                            <DataGrid ItemsSource="{Binding Path=Value}" AutoGenerateColumns="False" CanUserAddRows="False" IsHitTestVisible="False" HeadersVisibility="None">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Width="*" Header="Time" Binding="{Binding Duration}"/>
+                                    <DataGridTextColumn Width="*" Binding="{Binding Time, StringFormat=H:mm}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </DataTemplate>

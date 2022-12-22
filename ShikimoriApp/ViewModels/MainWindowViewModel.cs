@@ -15,6 +15,15 @@ namespace ShikimoriApp.ViewModels
     {
         private ShikimoriContext context = new ShikimoriContext();
         public event PropertyChangedEventHandler? PropertyChanged;
+        public MainWindowViewModel()
+        {
+            animes = new ObservableCollection<Anime>(context.GetAnimes(page, searchText, isProhibitedContent));
+            List<GenreListItem>? list = context.GetGenres().Select(o => new GenreListItem(o, false)).ToList();
+            genres = new ObservableCollection<GenreListItem>(list);
+            context.GetCalendar();
+            isProhibitedContent = false;
+            ProhibitedText = "Родительский контроль!";
+        }
 
         private ObservableCollection<GenreListItem>? genres;
         public ObservableCollection<GenreListItem>? Genres
@@ -69,14 +78,6 @@ namespace ShikimoriApp.ViewModels
             }
         }
 
-        public MainWindowViewModel()
-        {
-            animes = new ObservableCollection<Anime>(context.GetAnimes());
-            List<GenreListItem>? list = context.GetGenres().Select(o => new GenreListItem(o, false)).ToList();
-            genres = new ObservableCollection<GenreListItem>(list);
-            context.GetCalendar();
-            isProhibitedContent = true;
-        }
 
         private RelayCommand? nextPageCommand;
         public RelayCommand NextPageCommand
@@ -149,6 +150,17 @@ namespace ShikimoriApp.ViewModels
             }
         }
 
+        private string prohibitedText;
+        public string ProhibitedText
+        {
+            get => prohibitedText;
+            set
+            {
+                prohibitedText = value;
+                OnPropertyChanged();
+            }
+        }
+
         private RelayCommand? passwordEnter;
         public RelayCommand PasswordEnter
         {
@@ -158,7 +170,15 @@ namespace ShikimoriApp.ViewModels
                     (passwordEnter = new RelayCommand(obj =>
                     {
                         PasswordWindow passwordWindow = new PasswordWindow();
-                        IsProhibitedContent = (passwordWindow.ShowDialog().Value ? !IsProhibitedContent : IsProhibitedContent);
+                        if (passwordWindow.ShowDialog().Value)
+                        {
+                            IsProhibitedContent = !IsProhibitedContent;
+                            if (!IsProhibitedContent)
+                                ProhibitedText = "Родительский контроль!";
+                            else
+                                ProhibitedText = "";
+                            Update();
+                        }
                     }));
             }
         }
@@ -185,7 +205,7 @@ namespace ShikimoriApp.ViewModels
         {
             animes.Clear();
             int[]? genres = Genres.Where(o => o.Selected).Select(s => s.Genre.Id).ToArray();
-            Animes = new ObservableCollection<Anime>(context.GetAnimes(page, searchText, genres, isProhibitedContent));
+            Animes = new ObservableCollection<Anime>(context.GetAnimes(page, searchText, isProhibitedContent, genres));
         }
     }
 }

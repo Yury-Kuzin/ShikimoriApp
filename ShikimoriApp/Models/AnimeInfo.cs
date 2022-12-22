@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShikimoriApp.Models
 {
-    class AnimeInfo : Anime
+    public class AnimeInfo : Anime
     {
         public class ScreenshotItem
         {
