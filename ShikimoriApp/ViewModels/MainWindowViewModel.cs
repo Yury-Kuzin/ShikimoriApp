@@ -20,7 +20,6 @@ namespace ShikimoriApp.ViewModels
             animes = new ObservableCollection<Anime>(context.GetAnimes(page, searchText, isProhibitedContent));
             List<GenreListItem>? list = context.GetGenres().Select(o => new GenreListItem(o, false)).ToList();
             genres = new ObservableCollection<GenreListItem>(list);
-            context.GetCalendar();
             isProhibitedContent = false;
             ProhibitedText = "Родительский контроль!";
         }

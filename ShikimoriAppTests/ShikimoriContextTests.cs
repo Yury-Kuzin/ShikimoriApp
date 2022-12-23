@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using ShikimoriApp;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShikimoriApp.Exceptions;
 
 namespace ShikimoriApp.Tests
@@ -22,13 +23,13 @@ namespace ShikimoriApp.Tests
         [TestMethod()]
         public void GetPersonalListTest()
         {
-            Assert.Fail();
+            Assert.AreEqual(context.GetPersonalList(ShikimoriContext.ListStatus.Completed).Count, 81);
         }
 
         [TestMethod()]
         public void GetCalendarTest()
         {
-            Assert.Fail();
+            context.GetCalendar();
         }
 
         [TestMethod()]
@@ -43,6 +44,15 @@ namespace ShikimoriApp.Tests
         public void GetAnimeNotFoundTest()
         {
             context.GetAnime(2122121212);
+        }
+
+        [TestMethod()]
+        public void GetAnimesProhibitedTest()
+        {
+            Assert.AreNotEqual(context.GetAnimes(1, "", false, new int[] { 27 }).Count, 0);
+            Assert.AreEqual(context.GetAnimes(1, "", false, new int[] { 539, 12 }).Count, 0);
+            Assert.AreEqual(context.GetAnimes(1, "", false, new int[] { 12 }).Count, 0);
+            Assert.AreEqual(context.GetAnimes(1, "", false, new int[] { 539 }).Count, 0);
         }
     }
 }
