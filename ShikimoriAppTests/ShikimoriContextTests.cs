@@ -23,7 +23,10 @@ namespace ShikimoriApp.Tests
         [TestMethod()]
         public void GetPersonalListTest()
         {
-            Assert.AreEqual(context.GetPersonalList(ShikimoriContext.ListStatus.Completed).Count, 81);
+            Assert.AreEqual(context.GetPersonalList(ShikimoriContext.ListStatus.Completed).Count, 95);
+            Assert.AreEqual(context.GetPersonalList(ShikimoriContext.ListStatus.Dropped).Count, 10);
+            Assert.AreEqual(context.GetPersonalList(ShikimoriContext.ListStatus.Planned).Count, 109);
+            Assert.AreEqual(context.GetPersonalList(ShikimoriContext.ListStatus.Watching).Count, 1);
         }
 
         [TestMethod()]

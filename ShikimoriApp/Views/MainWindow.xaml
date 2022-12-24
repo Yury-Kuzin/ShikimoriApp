@@ -26,7 +26,7 @@
                 <MenuItem Header="Выход"></MenuItem>
             </MenuItem>
             <MenuItem Header="Помощь">
-                <MenuItem Header="О программе"></MenuItem>
+                <MenuItem Command="{Binding AboutOpen}" Header="О программе"></MenuItem>
             </MenuItem>
         </Menu>
         <Grid Grid.Column="0" Grid.Row="1">
@@ -103,7 +103,7 @@
             </DataGrid.RowHeaderStyle>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название" Width="250" CanUserSort="True">
+                <DataGridTextColumn Header="Название" Width="250" CanUserSort="True" SortMemberPath="Russian">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap"></Setter>

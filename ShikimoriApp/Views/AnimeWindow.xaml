@@ -25,22 +25,26 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" />
-            <Label Grid.Column="1" Grid.Row="0" />
+            <Label Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Рейтинг"/>
+            <Label Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding AnimeInfo.Score}"/>
 
-            <Label Grid.Column="0" Grid.Row="1" />
-            <Label Grid.Column="1" Grid.Row="1" />
+            <Label Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Возраст"/>
+            <Label Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding AnimeInfo.Rating}"/>
 
-            <Label Grid.Column="0" Grid.Row="2" />
-            <Label Grid.Column="1" Grid.Row="2" />
+            <Label Grid.Column="0" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Тип"/>
+            <Label Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding AnimeInfo.Kind}"/>
 
-            <Label Grid.Column="0" Grid.Row="3" />
-            <Label Grid.Column="1" Grid.Row="3" />
+            <Label Grid.Column="0" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Статус"/>
+            <Label Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding AnimeInfo.Status}"/>
+
+            <Label Grid.Column="0" Grid.Row="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Эпизоды"/>
+            <Label Grid.Column="1" Grid.Row="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding AnimeInfo.Episodes}"/>
         </Grid>
         <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding AnimeInfo.Description}" Margin="10,5,10,10" BorderBrush="{x:Null}" />
     </Grid>

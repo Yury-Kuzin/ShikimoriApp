@@ -6,8 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace ShikimoriApp.ViewModels
 {
@@ -192,6 +191,19 @@ namespace ShikimoriApp.ViewModels
                     {
                         MyAnimeListWindow myAnimeListWindow = new MyAnimeListWindow();
                         myAnimeListWindow.ShowDialog();
+                    }));
+            }
+        }
+
+        private RelayCommand? aboutOpen;
+        public RelayCommand AboutOpen
+        {
+            get
+            {
+                return aboutOpen ??
+                    (aboutOpen = new RelayCommand(obj =>
+                    {
+                        MessageBox.Show("О программе\nО программеО программеО программеО программеО программе\nО программе\nО программе\n", "О программе");
                     }));
             }
         }
