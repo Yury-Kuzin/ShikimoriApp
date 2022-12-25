@@ -1,6 +1,7 @@
 ﻿using ShikimoriApp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShikimoriApp.Exceptions;
+using ShikimoriApp.Models;
 
 namespace ShikimoriApp.Tests
 {
@@ -18,6 +19,18 @@ namespace ShikimoriApp.Tests
         public void GetAnimeTest()
         {
             Assert.AreEqual(context.GetAnime(199).Russian, "Унесённые призраками");
+        }
+
+        [TestMethod()]
+        public void GetAnimeInDiffLangTest()
+        {
+            List<Anime> animeRussianSearch = context.GetAnimes(1, "Наруто");
+            List<Anime> animeEnglishSearch = context.GetAnimes(1, "Naruto");
+            if (animeEnglishSearch.Count != 0 && animeRussianSearch.Count != 0)
+                Assert.AreEqual(animeRussianSearch.Find(o => o.Id == 20).Id, animeEnglishSearch.Find(o => o.Id == 20).Id);
+            else
+                Assert.Fail();
+
         }
 
         [TestMethod()]
